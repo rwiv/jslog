@@ -1,4 +1,5 @@
-import { createDevLogger, createProdLogger } from "./winston.js";
+import { createDevLogger, createProdLogger } from "../winston/winston.js";
+import { LogRecord } from "./LogRecord.js";
 export class Logger {
     winston;
     env;
@@ -36,6 +37,17 @@ export class Logger {
     getMsg(message, attrs = undefined) {
         if (message instanceof Error) {
             return message.stack;
+        }
+        if (message instanceof LogRecord) {
+            if (this.env === "prod") {
+                return {
+                    message: message.message,
+                    attrs: message.attrs,
+                };
+            }
+            else {
+                return JSON.stringify(message.message) + " " + JSON.stringify(message.attrs);
+            }
         }
         if (this.env === "prod") {
             return { message, attrs };

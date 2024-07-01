@@ -1,5 +1,6 @@
 import {it} from "vitest";
 import {Logger} from "./logger.js";
+import {LogRecord} from "./LogRecord.js";
 
 it("test", () => {
   // process.env.NODE_ENV = "prod";
@@ -12,5 +13,6 @@ it("test", () => {
     }
   }
   logger.info("hello", person);
+  logger.info(new LogRecord("hello", person))
   // logger.info(Error("hello"))
 })

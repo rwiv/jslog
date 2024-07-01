@@ -1,9 +1,7 @@
-import {createDevLogger, createProdLogger} from "./winston.js";
 import winston from "winston";
-
-export type Attrs = object | undefined;
-export type Env = "dev" | "prod";
-export type Msg = string | number | Error;
+import {createDevLogger, createProdLogger} from "../winston/winston.js";
+import {Env, Msg, Attrs} from "../types.js";
+import {LogRecord} from "./LogRecord.js";
 
 export class Logger {
 
@@ -32,25 +30,36 @@ export class Logger {
     }
   }
 
-  debug(msg: Msg, attrs: Attrs = undefined) {
+  debug(msg: Msg | LogRecord, attrs: Attrs = undefined) {
     this.winston.debug(this.getMsg(msg, attrs));
   }
 
-  info(msg: Msg, attrs: Attrs = undefined) {
+  info(msg: Msg | LogRecord, attrs: Attrs = undefined) {
     this.winston.info(this.getMsg(msg, attrs));
   }
 
-  warn(msg: Msg, attrs: Attrs = undefined) {
+  warn(msg: Msg | LogRecord, attrs: Attrs = undefined) {
     this.winston.warn(this.getMsg(msg, attrs));
   }
 
-  error(msg: Msg, attrs: Attrs = undefined) {
+  error(msg: Msg | LogRecord, attrs: Attrs = undefined) {
     this.winston.error(this.getMsg(msg, attrs));
   }
 
-  private getMsg(message: Msg, attrs: Attrs = undefined) {
+  private getMsg(message: Msg | LogRecord, attrs: Attrs = undefined) {
     if (message instanceof Error) {
       return message.stack;
+    }
+
+    if (message instanceof LogRecord) {
+      if (this.env === "prod") {
+        return {
+          message: message.message,
+          attrs: message.attrs,
+        };
+      } else {
+        return JSON.stringify(message.message) + " " + JSON.stringify(message.attrs);
+      }
     }
 
     if (this.env === "prod") {

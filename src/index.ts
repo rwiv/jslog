@@ -1,3 +1,7 @@
-export * from "./logger.js";
-export * from "./JsonTransport.js";
-export * from "./winston.js";
+export * from "./types.js";
+
+export * from "./winston/winston.js";
+export * from "./winston/JsonTransport.js";
+
+export * from "./logger/logger.js";
+export * from "./logger/LogRecord.js";
