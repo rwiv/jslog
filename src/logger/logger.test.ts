@@ -1,10 +1,13 @@
 import {it} from "vitest";
-import {Logger} from "./logger.js";
+import {log, Logger} from "./logger.js";
 import {LogRecord} from "./LogRecord.js";
 
 it("test", () => {
   // process.env.NODE_ENV = "prod";
-  const logger = new Logger();
+  // const log = new Logger();
+  log.info("hello1", {
+    foo: "bar",
+  })
   const person = {
     age: 21,
     name: {
@@ -12,7 +15,7 @@ it("test", () => {
       last: "park",
     }
   }
-  logger.info("hello", person);
-  logger.info(new LogRecord("hello", person))
-  // logger.info(Error("hello"))
+  log.info("hello2", person);
+  log.info(new LogRecord("hello2", person))
+  log.error(Error("hello3"))
 })
