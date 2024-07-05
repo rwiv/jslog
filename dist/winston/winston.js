@@ -1,20 +1,22 @@
 import winston from "winston";
-import chalk from "chalk";
 import { JsonTransport } from "./JsonTransport.js";
+import { GRAY, RESET } from "../ansi_consts.js";
 export function createDevLogger() {
     const { combine, timestamp, printf } = winston.format;
+    const upperCaseLevel = winston.format((info) => {
+        info.level = info.level.toUpperCase();
+        return info;
+    });
     const logFormat = printf(({ level, message, label, timestamp }) => {
-        return `${chalk.gray(timestamp)} ${level}:${message}`;
+        const time = `${GRAY}${timestamp}${RESET}`;
+        return `${time} ${level}: ${message}`;
     });
     return winston.createLogger({
-        format: combine(timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), logFormat),
+        format: combine(timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), upperCaseLevel(), logFormat),
         transports: [
             new winston.transports.Console({
-                // level: logLevel,
                 format: winston.format.combine(winston.format.colorize(), // log level별로 색상 적용
-                winston.format.padLevels({
-                    levels: { error: 0, warn: 0, info: 0, debug: 0, silly: 0, }
-                }), logFormat),
+                logFormat),
             }),
         ]
     });

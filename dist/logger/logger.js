@@ -1,5 +1,6 @@
 import { createDevLogger, createProdLogger } from "../winston/winston.js";
 import { LogRecord } from "./LogRecord.js";
+import { RESET, BOLD, WHITE_DIMMED } from "../ansi_consts.js";
 export class Logger {
     winston;
     env;
@@ -46,15 +47,28 @@ export class Logger {
                 };
             }
             else {
-                return JSON.stringify(message.message) + " " + JSON.stringify(message.attrs);
+                return this.convertPrettyMessage(message.message) + " " + this.convertPrettyAttrs(message.attrs);
             }
         }
         if (this.env === "prod") {
             return { message, attrs };
         }
         else {
-            return JSON.stringify(message) + " " + JSON.stringify(attrs);
+            const msg = this.convertPrettyMessage(message);
+            if (attrs !== undefined) {
+                return msg + " " + this.convertPrettyAttrs(attrs);
+            }
+            else {
+                return msg;
+            }
         }
+    }
+    convertPrettyMessage(message) {
+        return `${BOLD}${message}${RESET}`;
+    }
+    convertPrettyAttrs(attrs) {
+        const json = JSON.stringify(attrs, null, 2);
+        return `${WHITE_DIMMED}${json}${RESET}`;
     }
 }
 export const log = new Logger();

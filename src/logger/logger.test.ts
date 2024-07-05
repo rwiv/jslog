@@ -15,6 +15,7 @@ it("test", () => {
       last: "park",
     }
   }
+  log.info("hello2");
   log.info("hello2", person);
   log.info(new LogRecord("hello2", person))
   log.error(Error("hello3"))

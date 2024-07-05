@@ -10,5 +10,7 @@ export declare class Logger {
     warn(msg: Msg | LogRecord, attrs?: Attrs): void;
     error(msg: Msg | LogRecord, attrs?: Attrs): void;
     private getMsg;
+    private convertPrettyMessage;
+    private convertPrettyAttrs;
 }
 export declare const log: Logger;

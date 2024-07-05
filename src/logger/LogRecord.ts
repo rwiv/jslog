@@ -1,8 +1,8 @@
-import {Msg, Attrs} from "../types.js";
+import {Attrs} from "../types.js";
 
 export class LogRecord {
   constructor(
-    public readonly message: Msg,
+    public readonly message: string,
     public readonly attrs: Attrs,
   ) {
   }

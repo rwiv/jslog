@@ -1,0 +1,11 @@
+export declare const RESET = "\u001B[0m";
+export declare const RED_BOLD = "\u001B[1;31m";
+export declare const GREEN_BOLD = "\u001B[1;32m";
+export declare const YELLOW_BOLD = "\u001B[1;33m";
+export declare const BLUE_BOLD = "\u001B[1;34m";
+export declare const PURPLE_BOLD = "\u001B[1;35m";
+export declare const CYAN_BOLD = "\u001B[1;36m";
+export declare const WHITE_BOLD = "\u001B[1;37m";
+export declare const WHITE_DIMMED = "\u001B[2;37m";
+export declare const GRAY = "\u001B[90m";
+export declare const BOLD = "\u001B[1m";
