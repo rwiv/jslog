@@ -11,4 +11,4 @@ export declare class Logger {
     error(msg: Msg | LogRecord, attrs?: Attrs): void;
     private getMsg;
 }
-export declare const logger: Logger;
+export declare const log: Logger;
