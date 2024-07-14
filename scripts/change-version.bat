@@ -1,5 +1,5 @@
 cd ..
-git tag -d v1.0.0
-git tag v1.0.0
+git tag -d v0.0.1
+git tag v0.0.1
 git push --tag --force
 pause
