@@ -1,10 +1,11 @@
 import winston from "winston";
-import { Env, Msg, Attrs } from "../types.js";
+import { LogEnv, Msg, Attrs } from "../types.js";
 import { LogRecord } from "./LogRecord.js";
 export declare class Logger {
     private readonly winston;
     private readonly env;
-    constructor(envArg?: Env, winstonLogger?: winston.Logger | undefined);
+    constructor(envArg?: LogEnv, winstonLogger?: winston.Logger);
+    setLevel(level: string): void;
     debug(msg: Msg | LogRecord, attrs?: Attrs): void;
     info(msg: Msg | LogRecord, attrs?: Attrs): void;
     warn(msg: Msg | LogRecord, attrs?: Attrs): void;

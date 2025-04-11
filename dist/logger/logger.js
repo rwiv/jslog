@@ -4,7 +4,7 @@ import { RESET, BOLD, WHITE_DIMMED } from "../ansi_consts.js";
 export class Logger {
     winston;
     env;
-    constructor(envArg = "dev", winstonLogger = undefined) {
+    constructor(envArg = "dev", winstonLogger) {
         if (envArg === "prod" || process.env.NODE_ENV === "prod") {
             this.env = "prod";
         }
@@ -22,6 +22,9 @@ export class Logger {
         else {
             this.winston = createDevLogger();
         }
+    }
+    setLevel(level) {
+        this.winston.level = level;
     }
     debug(msg, attrs = undefined) {
         this.winston.debug(this.getMsg(msg, attrs));
