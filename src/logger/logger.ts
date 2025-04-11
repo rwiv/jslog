@@ -1,18 +1,15 @@
 import winston from "winston";
 import {createDevLogger, createProdLogger} from "../winston/winston.js";
-import {Env, Msg, Attrs} from "../types.js";
+import {LogEnv, Msg, Attrs} from "../types.js";
 import {LogRecord} from "./LogRecord.js";
 import {RESET, BOLD, WHITE_DIMMED} from "../ansi_consts.js";
 
 export class Logger {
 
   private readonly winston: winston.Logger;
-  private readonly env: Env;
+  private readonly env: LogEnv;
 
-  constructor(
-    envArg: Env = "dev",
-    winstonLogger: winston.Logger | undefined = undefined,
-  ) {
+  constructor(envArg: LogEnv = "dev", winstonLogger?: winston.Logger) {
     if (envArg === "prod" || process.env.NODE_ENV === "prod") {
       this.env = "prod";
     } else {
@@ -29,6 +26,10 @@ export class Logger {
     } else {
       this.winston = createDevLogger();
     }
+  }
+
+  setLevel(level: string) {
+    this.winston.level = level;
   }
 
   debug(msg: Msg | LogRecord, attrs: Attrs = undefined) {
