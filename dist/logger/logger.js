@@ -26,17 +26,26 @@ export class Logger {
     setLevel(level) {
         this.winston.level = level;
     }
+    trace(msg, attrs = undefined) {
+        this.winston.trace(this.getMsg(msg, attrs));
+    }
     debug(msg, attrs = undefined) {
         this.winston.debug(this.getMsg(msg, attrs));
     }
     info(msg, attrs = undefined) {
         this.winston.info(this.getMsg(msg, attrs));
     }
+    verbose(msg, attrs = undefined) {
+        this.winston.verbose(this.getMsg(msg, attrs));
+    }
     warn(msg, attrs = undefined) {
         this.winston.warn(this.getMsg(msg, attrs));
     }
     error(msg, attrs = undefined) {
         this.winston.error(this.getMsg(msg, attrs));
+    }
+    fatal(msg, attrs = undefined) {
+        this.winston.fatal(this.getMsg(msg, attrs));
     }
     getMsg(message, attrs = undefined) {
         if (message instanceof Error) {

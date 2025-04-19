@@ -5,7 +5,7 @@ export class JsonTransport extends Transport {
     }
     log(info, next) {
         const msg = {
-            level: info.level,
+            level: info.level.toUpperCase(),
             message: info.message,
             ...info.attrs,
         };

@@ -2,6 +2,28 @@ import winston from "winston";
 import {JsonTransport} from "./JsonTransport.js";
 import {GRAY, RESET} from "../ansi_consts.js";
 
+const levels = {
+  fatal: 0,
+  error: 1,
+  warn: 2,
+  info: 3,
+  verbose: 4,
+  debug: 5,
+  trace: 6,
+};
+
+const colors = {
+  fatal: 'red',
+  error: 'red',
+  warn: 'yellow',
+  info: 'green',
+  verbose: 'cyan',
+  debug: 'blue',
+  trace: 'magenta',
+};
+
+winston.addColors(colors);
+
 export function createDevLogger(): winston.Logger {
   const { combine, timestamp, printf } = winston.format;
 
@@ -15,6 +37,7 @@ export function createDevLogger(): winston.Logger {
   });
 
   return winston.createLogger({
+    levels,
     format: combine(
       timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
       upperCaseLevel(),
@@ -33,6 +56,7 @@ export function createDevLogger(): winston.Logger {
 
 export function createProdLogger(): winston.Logger {
   return winston.createLogger({
+    levels,
     transports: [ new JsonTransport() ],
   });
 }

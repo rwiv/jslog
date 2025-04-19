@@ -32,6 +32,10 @@ export class Logger {
     this.winston.level = level;
   }
 
+  trace(msg: Msg | LogRecord, attrs: Attrs = undefined) {
+    (this.winston as any).trace(this.getMsg(msg, attrs));
+  }
+
   debug(msg: Msg | LogRecord, attrs: Attrs = undefined) {
     this.winston.debug(this.getMsg(msg, attrs));
   }
@@ -40,12 +44,20 @@ export class Logger {
     this.winston.info(this.getMsg(msg, attrs));
   }
 
+  verbose(msg: Msg | LogRecord, attrs: Attrs = undefined) {
+    this.winston.verbose(this.getMsg(msg, attrs));
+  }
+
   warn(msg: Msg | LogRecord, attrs: Attrs = undefined) {
     this.winston.warn(this.getMsg(msg, attrs));
   }
 
   error(msg: Msg | LogRecord, attrs: Attrs = undefined) {
     this.winston.error(this.getMsg(msg, attrs));
+  }
+
+  fatal(msg: Msg | LogRecord, attrs: Attrs = undefined) {
+    (this.winston as any).fatal(this.getMsg(msg, attrs));
   }
 
   private getMsg(message: Msg | LogRecord, attrs: Attrs = undefined) {

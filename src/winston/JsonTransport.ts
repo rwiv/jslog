@@ -8,7 +8,7 @@ export class JsonTransport extends Transport {
 
   public log(info: any, next: () => void): any {
     const msg = {
-      level: info.level,
+      level: info.level.toUpperCase(),
       message: info.message,
       ...info.attrs,
     }

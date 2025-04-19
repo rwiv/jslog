@@ -1,13 +1,12 @@
 import {it} from "vitest";
-import {log, Logger} from "./logger.js";
+import {Logger} from "./logger.js";
 import {LogRecord} from "./LogRecord.js";
 
 it("test", () => {
-  log.setLevel("debug");
-
-  // process.env.NODE_ENV = "prod";
-  // const log = new Logger();
-  log.info("hello1", {
+  process.env.NODE_ENV = "prod";
+  const log = new Logger();
+  log.setLevel("trace");
+  log.trace("hello1", {
     foo: "bar",
   })
   const person = {
